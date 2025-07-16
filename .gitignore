@@ -69,3 +69,6 @@ venv.bak/
 
 # Windows
 Thumbs.db
+
+#node modules
+node_modules/
