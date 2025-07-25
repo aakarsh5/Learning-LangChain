@@ -10,6 +10,7 @@ llm = HuggingFaceEndpoint(
 
 model = ChatHuggingFace(llm = llm)
 
+
 result = model.invoke("Who is the richest person in Nepal?")
 
 print(result.content)
