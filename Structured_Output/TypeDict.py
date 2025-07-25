@@ -1,3 +1,4 @@
+#this is for representational pourpose it doesnot ensure
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from typing import TypedDict, Annotated, Literal, Optional
 from dotenv import load_dotenv
@@ -47,3 +48,4 @@ If you don’t need all the fancy stuff in the iPad Pro, this is a great middle 
 print("before result")
 print(result)
 print("after result")
+print(result['sentiment'])
