@@ -5,7 +5,7 @@ from langchain_core.prompts import PromptTemplate
 load_dotenv()
 
 llm = HuggingFaceEndpoint(
-    repo_id='HuggingFaceH4/zephyr-7b-beta',
+    repo_id='meta-llama/Meta-Llama-3-8B-Instruct',
     task='text-generation'
 )
 
