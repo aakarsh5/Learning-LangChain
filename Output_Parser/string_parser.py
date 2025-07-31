@@ -5,7 +5,8 @@ from langchain_core.prompts import PromptTemplate
 load_dotenv()
 
 llm = HuggingFaceEndpoint(
-    repo_id='meta-llama/Meta-Llama-3-8B-Instruct',
+    #repo_id='meta-llama/Meta-Llama-3-8B-Instruct',
+    repo_id='google/gemma-2-2b-it',
     task='text-generation'
 )
 
@@ -29,6 +30,6 @@ prompt2 = template2.invoke({'text':result.content})
 
 result2 = model.invoke(prompt2)
 
-print(result)
+print(result.content)
 
-print(result2)
+print(result2.content)
