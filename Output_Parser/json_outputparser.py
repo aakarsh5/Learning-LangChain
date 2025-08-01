@@ -16,15 +16,24 @@ parser = JsonOutputParser()
 
 template = PromptTemplate(
     template='Give me 5 names of super heroes\n {format_ins}',
-    input_variables=[''],
+    input_variables=[],
     partial_variables={'format_ins':parser.get_format_instructions()}
 )
 
-prompt = template.format()
+#                  normal way
+# prompt = template.format()
 
-result = model.invoke(prompt)
+# result = model.invoke(prompt)
 
-final_result = parser.parse(result.content)
+# final_result = parser.parse(result.content)
 
-print(final_result)
-print(type(final_result))
+# print(final_result)
+# print(type(final_result))
+
+#                using chain
+
+chain = template | model | parser
+
+result = chain.invoke({})
+
+print(result)
