@@ -45,3 +45,4 @@ result = chain.invoke({'fact':'Everest'})
 
 print(result)
 
+# can not validate data as string or int 
