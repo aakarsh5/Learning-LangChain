@@ -13,9 +13,9 @@ llm = HuggingFaceEndpoint(
 model = ChatHuggingFace(llm = llm)
 
 Schema = [
-    ResponseSchema(name ='fact 1', description='fact 1 about the topic'),
-    ResponseSchema(name ='fact 2', description='fact 2 about the topic'),
-    ResponseSchema(name ='fact 3', description='fact 3 about the topic')
+    ResponseSchema(name ='fact_1', description='fact 1 about the topic'),
+    ResponseSchema(name ='fact_2', description='fact 2 about the topic'),
+    ResponseSchema(name ='fact_3', description='fact 3 about the topic')
 ]
 
 parser = StructuredOutputParser.from_response_schemas(Schema)
@@ -25,12 +25,23 @@ template = PromptTemplate(
     input_variables=['topic'],
     partial_variables={'format_instructions' : parser.get_format_instructions()},
 )
+########################################################
+# without chain normal method
+# prompt = template.invoke({'fact':'Everest'});
 
-prompt = template.invoke({'fact':'Everest'});
+# result = model.invoke(prompt)
 
-result = model.invoke(prompt)
+# final_result = parser.parse(result.content)
 
-final_result = parser.parse(result.content)
+# print(final_result)
 
-print(final_result)
+
+########################################################
+#with chain
+
+chain = template | model | parser
+
+result = chain.invoke({'fact':'Everest'})
+
+print(result)
 
