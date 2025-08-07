@@ -21,6 +21,8 @@ parser = StrOutputParser()
 
 chain = Prompt | model | parser
 
-result = chain.invoke({'Japan'})
+result = chain.invoke({'topic':'Japan'})
 
 print(result)
+
+chain.get_graph().print_ascii()
