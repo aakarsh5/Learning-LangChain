@@ -2,7 +2,7 @@ from langchain_huggingface import ChatHuggingFace,HuggingFaceEndpoint
 from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain.schema.runnable import RunnableParallel
+from langchain.schema.runnable import RunnableParallel, RunnableBranch, RunnableLambda
 from langchain_core.output_parsers import pydantic,PydanticOutputParser
 from pydantic import BaseModel, Field
 from typing import Literal
@@ -29,11 +29,26 @@ prompt = PromptTemplate(
     partial_variables={'instruction_format':parser2.get_format_instructions()},
 )
 
+prompt2 = PromptTemplate(
+    template='Give response for positive feedback \n {feedback}',
+    input_variables=['feedback']
+)
+
+prompt3 = PromptTemplate(
+    template='Give response for negative feedback \n {feedback}',
+    input_variables=['feedback']
+)
 
 parser = StrOutputParser()
 
 classifier_chain = prompt | model | parser2
 
-result = classifier_chain.invoke({'feedback':'The product is better to use in this price range'})
+branch_chain = RunnableBranch(
+    (lambda x:x.sentiment == 'Positive', prompt2 | model | parser ),
+    (lambda x:x.sentiment == 'Negative', prompt3 | model | parser ),
+    RunnableLambda(lambda x:"Couldn't analyse the sentiment")
+)
 
-print(result)
+chain = classifier_chain | branch_chain
+
+print(chain.invoke({'feedback':'The product seems nice '}))
