@@ -1,7 +1,6 @@
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS
-from langchain_core.prompts import PromptTemplate
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
@@ -21,6 +20,26 @@ vector_store = FAISS.from_documents(docs,embeddings)
 # Create a retriever
 retriever = vector_store.as_retriever()
 
+# Manual query
+query = "What is the summary of the document"
+retrieved_doc = retriever._get_relevant_documents(query)
+
+# Combine text
+retrived_text = "\n".join([doc.page_content for doc in retrieved_doc])
+
+# Define the llm 
+llm = HuggingFaceEndpoint(
+    repo_id='google/gemma-2-2b-it',
+    task='text-generation'
+)
+
+# Prompt
+prompt = "Based on following text answer the question {query} \n {retrived_text}"
+
+# Invoke
+result = llm.invoke(prompt)
+
+print(result)
 
 
 
