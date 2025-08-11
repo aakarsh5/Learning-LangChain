@@ -1,0 +1,14 @@
+<input type="file" id="fileInput" style="display: none" />
+<button id="selectFileBtn">Select a file</button>
+<script>
+  const fileInput = document.getElementById("fileInput");
+  const btn = document.getElementById("selectFileBtn");
+
+  btn.addEventListener("click", () => {
+    fileInput.click(); // triggers native file picker
+  });
+
+  fileInput.addEventListener("change", () => {
+    console.log(fileInput.files[0]); // selected file
+  });
+</script>
