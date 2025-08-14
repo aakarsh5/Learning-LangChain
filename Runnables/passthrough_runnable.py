@@ -1,6 +1,6 @@
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnableParallel, RunnableSequence
+from langchain_core.runnables import RunnableParallel, RunnableSequence, RunnablePassthrough
 from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv
 
@@ -26,11 +26,11 @@ prompt2 = PromptTemplate(
 parser = StrOutputParser()
 
 chain = RunnableParallel({
-    'song': RunnableSequence(prompt2, model, parser),
+    'question': RunnablePassthrough(),
     'poem': RunnableSequence(prompt1, model, parser),
 })
 
 result = chain.invoke({'topic':'AI'})
 
-print(result['song'])
+print(result['question'])
 print(result['poem'])
