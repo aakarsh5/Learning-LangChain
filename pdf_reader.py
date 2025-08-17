@@ -39,7 +39,7 @@ prompt = "Based on following text answer the question {query} \n {retrived_text}
 # Invoke
 result = llm.invoke(prompt)
 
-print(result)
+print(result)w
 
 
 
