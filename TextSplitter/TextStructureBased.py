@@ -26,6 +26,6 @@ splitter = RecursiveCharacterTextSplitter(
     chunk_overlap = 0,
 )
 
-docs = splitter.split_text(text)
+chunks = splitter.split_text(text)
 
-print(docs)
+print(chunks)
