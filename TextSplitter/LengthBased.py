@@ -10,7 +10,7 @@ splitter = CharacterTextSplitter(
     chunk_overlap = 0,
     separator = ''
 )
-
+# every chunk is a document object
 result = splitter.split_documents(docs)
 
 print(result[0].page_content)
