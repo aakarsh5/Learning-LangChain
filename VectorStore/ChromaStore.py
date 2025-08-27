@@ -17,8 +17,37 @@ vector_store = Chroma(
     collection_name='sample' #collection name is sample
 )
 
-#to add document we can add doucment 
+# #to add document we can add doucment 
 vector_store.add_documents(docs)
 
-#view document
-vector_store.get()
+# #view document
+print(vector_store.get())
+
+#similarity search
+# result = vector_store.similarity_search(
+#     query='Define Langchain?',
+#     k = 2
+# )
+# print(result)
+
+#similarity search with score
+# result = vector_store.similarity_search_with_score(
+#     query='Define Document',
+#     k = 2
+# )
+# print(result)
+
+#search by metadata
+# result = vector_store.similarity_search_with_score(
+#     query='',
+#     filter={"source": "docs"}
+# )
+# print(result)
+
+#update document
+# update_doc1 = Document(page_content="LangChain is an open-source framework that helps developers build applications powered by large language models (LLMs) by connecting them with data sources, APIs, and tools in a structured way.", metadata={"source": "intro", "id": 1})
+
+# vector_store.update_document(document_id='4d32fdf6-1a1e-40e8-aaca-4a3e6235a424',document=update_doc1)
+
+#delete document
+#vector_store.delete(ids=['    '])
