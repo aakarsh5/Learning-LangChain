@@ -21,7 +21,7 @@ vectorstore = FAISS.from_documents(
 #using MMR in retriever
 retriever = vectorstore.as_retriever(
     search_type ="mmr",
-    search_kwargs={'k':3, "lambda_mult":1} #lambda_mult is parameter for diversity
+    search_kwargs={'k':3, "lambda_mult":0.5} #lambda_mult is parameter for diversity
 )
 
 query = "what is langchain"
